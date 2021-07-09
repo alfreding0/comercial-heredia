@@ -1,6 +1,6 @@
 package main;
 
-import clases.Prueba;
+import clases.PersonaPrueba;
 
 /**
  *
@@ -10,9 +10,9 @@ public class Main {
     
     
     public static void main(String[] args) {
-        Prueba prueba_uno = new Prueba("Alfredo", "Gonzales", 151, true, "12-12-12");
+        PersonaPrueba prueba_uno = new PersonaPrueba("Alfredo", "Gonzales", 151, true, "12-12-12");
         
-        Prueba prueba_dos = new Prueba();
+        PersonaPrueba prueba_dos = new PersonaPrueba();
         
         
         System.out.println("Nombre Completo: " + prueba_uno.getNombre() + " " + prueba_uno.getApellido());

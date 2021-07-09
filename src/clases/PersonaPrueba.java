@@ -5,7 +5,7 @@ package clases;
  *
  * @author dark
  */
-public class Prueba {
+public class PersonaPrueba { //PERSONAL
     private String nombre;    // null           // "Alfredo"
     private String apellido;  // null           // "Gonzales Quiucha"
     private int edad;         // 0              // 13                                   
@@ -14,7 +14,7 @@ public class Prueba {
 
     
     //Constructor con pedido de datos (obligatorio)
-    public Prueba(String nombre, String apellido, int edad, boolean estado, String fecha_nac) {
+    public PersonaPrueba(String nombre, String apellido, int edad, boolean estado, String fecha_nac) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
@@ -23,7 +23,7 @@ public class Prueba {
     }
 
     //Constructor vacío (asignda los valores por defecto a las variables)
-    public Prueba() {
+    public PersonaPrueba() {
     }
 
     public String getNombre() {
@@ -64,5 +64,20 @@ public class Prueba {
 
     public void setFecha_nac(String fecha_nac) {
         this.fecha_nac = fecha_nac;
-    }    
+    }
+
+    public void insertarPersona(){
+        //  INSERT INTO persona VALUES ('', '7698743', 'M', 'Camiri');
+        String sql = "INSERT INTO persona VALUES ('" + this.nombre + "', '"+ this.edad +"', '"+ this.fecha_nac +"', '"+ this.estado +"');";
+        db.ejecutarConsulta( sql );
+    }
+    
+    public void mostrarPersonas(){
+        // SELECT * FROM persona;
+        
+    }
+    
+    public void eliminarPersona(){
+        
+    }
 }
