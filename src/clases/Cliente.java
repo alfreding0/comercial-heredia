@@ -11,10 +11,9 @@ public class Cliente {
     private String genero;
     private String direccion;
     
-    private final Conexion con;
+    private final Conexion con = new Conexion();
 
     public Cliente(String ci, String nombre_completo, String fecha_nac, String genero, String direccion) {
-        this.con = new Conexion();
         this.ci = ci;
         this.nombre_completo = nombre_completo;
         this.fecha_nac = fecha_nac;
@@ -23,7 +22,6 @@ public class Cliente {
     }
 
     public Cliente() {
-        this.con = new Conexion();
     }
 
     public String getCi() {
