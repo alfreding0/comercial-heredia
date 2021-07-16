@@ -69,7 +69,7 @@ public class PersonaPrueba { //PERSONAL
     public void insertarPersona(){
         //  INSERT INTO persona VALUES ('', '7698743', 'M', 'Camiri');
         String sql = "INSERT INTO persona VALUES ('" + this.nombre + "', '"+ this.edad +"', '"+ this.fecha_nac +"', '"+ this.estado +"');";
-        db.ejecutarConsulta( sql );
+//        db.ejecutarConsulta( sql );
     }
     
     public void mostrarPersonas(){
