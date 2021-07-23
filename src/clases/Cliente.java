@@ -1,5 +1,12 @@
 package clases;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author alfreding0
@@ -67,6 +74,33 @@ public class Cliente {
     public void guardarCliente(){
         String comando = "INSERT INTO cliente VALUES ('"+ this.ci +"', '"+ this.nombre_completo +"', '"+ this.fecha_nac +"', '"+ this.genero +"', '"+ this.direccion +"');";
         con.ejecutarComando(comando);
+    }
+    
+    public void mostrarClientes(JTable tabla){
+        DefaultTableModel model;
+        try {
+            String [] titulos = {"CI","NOMBRE COMPLETO","FECHA NAC.","GÉNERO","DIRECCION"};
+            model = new DefaultTableModel(null, titulos);
+            
+            String consulta = "SELECT ci, nombre_completo, fecha_nac, genero, direccion FROM cliente;";
+            
+            ResultSet rs = con.ejecutarConsulta(consulta);
+            ResultSetMetaData datos = rs.getMetaData();
+            
+            int nc=datos.getColumnCount();
+            
+            while (rs.next()) {
+                Object fila []= new Object [nc];
+                
+                for(int i=0;i<nc;i++){
+                    fila[i]=rs.getObject(i+1);
+                }
+                model.addRow(fila);
+            }
+            tabla.setModel(model);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar clientes!\n"+ex.getMessage());
+        }
     }
     
 //    public void modificarCliente(){
