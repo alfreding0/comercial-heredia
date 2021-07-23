@@ -11,13 +11,13 @@ insert into test (name, monto) values('alf', 0.0);
 select * from test;
 */
 
-DROP TABLE IF EXISTS tipo_personal;
+
 CREATE TABLE tipo_personal(
 	id serial primary key, -- int
 	descripcion varchar(30)
 );
 
-DROP TABLE IF EXISTS personal;
+
 CREATE TABLE personal(
 	ci varchar(12) primary key,
 	nombre_completo varchar(150) not null,
@@ -30,7 +30,6 @@ CREATE TABLE personal(
 	references tipo_personal(id)
 );
 
-DROP TABLE IF EXISTS usuario;
 CREATE TABLE usuario(
 	id serial primary key,
 	nombre_usuario varchar(30),
@@ -43,7 +42,6 @@ CREATE TABLE usuario(
 	references personal(ci)
 );
 
-DROP TABLE IF EXISTS proveedor;
 CREATE TABLE proveedor(
 	id serial primary key,
 	nombre varchar(30) not null,
@@ -51,7 +49,6 @@ CREATE TABLE proveedor(
 	telefono varchar(12)
 );
 
-DROP TABLE IF EXISTS compra;
 CREATE TABLE compra(
 	id serial primary key,
 	total float default 0.00,
@@ -64,7 +61,6 @@ CREATE TABLE compra(
 	references personal (ci)
 );
 
-DROP TABLE IF EXISTS producto;
 CREATE TABLE producto(
 	id serial primary key,
 	nombre varchar(30),
@@ -72,20 +68,20 @@ CREATE TABLE producto(
 	precio float default 0.00
 );
 
-DROP TABLE IF EXISTS detalle_compra;
 CREATE TABLE detalle_compra(
 	id_compra int,
 	id_producto int,
 	precio_unid float,
 	cantidad int,
 	primary key (id_compra, id_producto),
+
 	foreign key (id_compra)
 	references compra (id),
+
 	foreign key (id_producto)
 	references producto (id)
 );
 
-DROP TABLE IF EXISTS cliente;
 CREATE TABLE cliente(
 	ci varchar(12) primary key,
 	nombre_completo varchar(30) not null,
@@ -94,7 +90,6 @@ CREATE TABLE cliente(
 	direccion varchar(30)
 );
 
-DROP TABLE IF EXISTS venta;
 CREATE TABLE venta(
 	id serial primary key,
 	total float default 0.00,
@@ -108,7 +103,6 @@ CREATE TABLE venta(
 	references personal (ci)
 );
 
-DROP TABLE IF EXISTS detalle_venta;
 CREATE TABLE detalle_venta(
 	id_venta int,
 	id_producto int,
