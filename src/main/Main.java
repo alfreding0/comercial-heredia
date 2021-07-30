@@ -1,6 +1,7 @@
 package main;
 
 import clases.Conexion;
+import clases.Producto;
 import java.sql.ResultSet;
 
 /**
@@ -11,14 +12,21 @@ public class Main {
     
     
     public static void main(String[] args) {
-        Conexion conexion = new Conexion();
         
-        String comando = "INSERT INTO tipo_personales (descripcion) VALUES ('prueba 1');";
-        conexion.ejecutarComando(comando);
+        String nombre = "Fideito";
+        String stock = "100";
+        String precio = "8.70";
         
-        String consulta = "SELECT * FROM tipo_personal;";
-        ResultSet res = conexion.ejecutarConsulta(consulta);
+        int cantidad_vendido = 10;
                 
-        conexion.mostrarDatosPorConsola(res);
+//        Producto prod = new Producto(nombre, stock, precio);
+        Producto prod = new Producto();
+        prod.setId("2");
+        
+        prod.disminuirStock(cantidad_vendido);
+                
+        Conexion con = new Conexion();
+        ResultSet respuesta = con.ejecutarConsulta("Select * from producto;");
+        con.mostrarDatosPorConsola(respuesta);
     }    
 }
