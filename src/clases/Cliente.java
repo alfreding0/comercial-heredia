@@ -103,11 +103,13 @@ public class Cliente {
         }
     }
     
-//    public void modificarCliente(){
-//        Con
-//    }
-//    
-//    public void eliminarCliente(){
-//        Con
-//    }
+    public void modificarCliente(){
+        String comando = "UPDATE cliente SET nombre_completo='"+ this.nombre_completo +"', fecha_nac='"+ this.fecha_nac +"', genero='"+ this.genero +"', direccion='"+ this.direccion +"' WHERE ci='"+ this.ci+"';";
+        con.ejecutarComando(comando);
+    }
+    
+    public void eliminarCliente(){
+        String comando = "DELETE FROM cliente WHERE ci = '"+this.ci+"'";
+        con.ejecutarComando(comando);
+    }
 }
