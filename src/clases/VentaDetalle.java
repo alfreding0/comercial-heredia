@@ -1,5 +1,12 @@
 package clases;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author alfreding0
@@ -59,32 +66,32 @@ public class VentaDetalle {
         con.ejecutarComando(comando);
     }
     
-//    public void mostrarVentaDetalle(JTable tabla){
-//        DefaultTableModel model;
-//        try {
-//            String [] titulos = {"ID","NOMBRE","STOCK","PRECIO (Bs.)"};
-//            model = new DefaultTableModel(null, titulos);
-//            
-//            String consulta = "SELECT * FROM detalle_venta;";
-//            
-//            ResultSet rs = con.ejecutarConsulta(consulta);
-//            ResultSetMetaData datos = rs.getMetaData();
-//            
-//            int nc=datos.getColumnCount();
-//            
-//            while (rs.next()) {
-//                Object fila []= new Object [nc];
-//                
-//                for(int i=0;i<nc;i++){
-//                    fila[i]=rs.getObject(i+1);
-//                }
-//                model.addRow(fila);
-//            }
-//            tabla.setModel(model);
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al mostrar productos!\n"+ex.getMessage());
-//        }
-//    }
+    public void mostrarVentaDetalle(JTable tabla){
+        DefaultTableModel model;
+        try {
+            String [] titulos = {"PRODUCTO","PRECIO (Bs.)","CANTIDAD"};
+            model = new DefaultTableModel(null, titulos);
+            
+            String consulta = "SELECT p.nombre, dv.precio_unid, dv.cantidad FROM detalle_venta dv, producto p WHERE dv.id_producto = p.id;";
+            
+            ResultSet rs = con.ejecutarConsulta(consulta);
+            ResultSetMetaData datos = rs.getMetaData();
+            
+            int nc=datos.getColumnCount();
+            
+            while (rs.next()) {
+                Object fila []= new Object [nc];
+                
+                for(int i=0;i<nc;i++){
+                    fila[i]=rs.getObject(i+1);
+                }
+                model.addRow(fila);
+            }
+            tabla.setModel(model);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar DETALLE DE VENTA!\n"+ex.getMessage());
+        }
+    }
     
 //    public void modificarVentaDetalle(){
 //        String comando = "UPDATE detalle_venta SET nombre='"+ this.nombre +"', stock='"+ this.stock +"', precio='"+ this.precio +"' WHERE id='"+ this.id+"';";

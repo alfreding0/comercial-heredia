@@ -74,7 +74,7 @@ public class Venta {
     }
     
     public void guardarVenta(){
-        String comando = "INSERT INTO venta (total, fecha, hora, ci_cliente, ci_personal) VALUES ('"+ this.total +"', '"+ this.fecha +"', '"+ this.hora +"', '"+ this.ci_cliente +"', '"+ this.ci_personal +"');";
+        String comando = "INSERT INTO venta (ci_cliente, ci_personal) VALUES ('"+ this.ci_cliente +"', '"+ this.ci_personal +"');";
         con.ejecutarComando(comando);
     }
     

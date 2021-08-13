@@ -5,6 +5,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,14 @@ public class Producto {
     }
 
     public Producto(String nombre, String stock, String precio) {
+        this.nombre = nombre;
+        this.stock = stock;
+        this.precio = precio;
+    }
+    
+    //este constructor se va a utilizar para listar Productos en el combobox
+    public Producto(String id, String nombre, String stock, String precio) {
+        this.id = id;
         this.nombre = nombre;
         this.stock = stock;
         this.precio = precio;
@@ -138,4 +147,37 @@ public class Producto {
         }
     }
     
+    public void listarProductos(JComboBox<Producto> comboBoxProducto){
+        try{
+            
+            ResultSet rs = con.ejecutarConsulta("SELECT id, nombre, stock, precio FROM producto ORDER BY nombre; ");
+            
+            //este es un señuelo solamente para saber si es o no es un dato real de la base de datos.
+            comboBoxProducto.addItem(new Producto("000", "titulo", "titulo", "titulo"));
+            
+            
+            //va a cargar los productos como una lista de elemetnos en el JComboBox
+            while(rs.next()){
+                comboBoxProducto.addItem(new Producto(
+                        rs.getString("id"),
+                        rs.getString("nombre"),
+                        rs.getString("stock"), 
+                        rs.getString("precio")
+                    )
+                );
+            }
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al listar Productos\n"+e);
+        }
+    }
+    
+//    //Para que al listar todo el personal en el jcombobox solo muestre nombres y apellidos, sin los demas atributos
+    @Override
+    public String toString(){
+        if(!this.id.equals("000") && !this.nombre.equals("titulo") &&  !this.stock.equals("titulo") &&  !this.precio.equals("titulo"))
+            return this.nombre;
+        else
+            return "SELECCIONE UN PRODUCTO:";
+    }
 }
