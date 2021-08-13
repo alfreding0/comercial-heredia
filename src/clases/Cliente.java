@@ -5,6 +5,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -111,5 +112,28 @@ public class Cliente {
     public void eliminarCliente(){
         String comando = "DELETE FROM cliente WHERE ci = '"+this.ci+"'";
         con.ejecutarComando(comando);
+    }
+    
+    public void buscarClientePorCI(JTextField ci, JTextField nombre_cliente){
+        try {
+            String consulta = "SELECT ci, nombre_completo FROM cliente WHERE ci = '"+ this.ci +"';";
+            
+            ResultSet rs = con.ejecutarConsulta(consulta);
+                        
+            if ( rs.next() ) {
+                String ci_buscado = rs.getString("ci");
+                String nombre = rs.getString("nombre_completo");
+                
+                //poniendo el resultado de busqueda en los JTextFields de la Venta.
+                ci.setText(ci_buscado);
+                nombre_cliente.setText(nombre);
+            }else{
+                JOptionPane.showMessageDialog(null, "No se ha encontrado el Cliente!");
+            }
+            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar clientes por CI!\n"+ex.getMessage());
+        }
     }
 }
