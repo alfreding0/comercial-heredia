@@ -121,4 +121,21 @@ public class Producto {
         }
     }
     
+    public void aumentarStock(int cantidad){
+        try {
+            int ultimo_stock = 0;
+            ResultSet res = con.ejecutarConsulta("SELECT stock FROM producto WHERE id='" +this.id+ "'");
+            
+            while(res.next()){
+                ultimo_stock = res.getInt("stock");
+            }
+            int stock_actual = ultimo_stock + cantidad;
+            String comando = "UPDATE producto SET stock="+ stock_actual +"; ";
+            con.ejecutarComando(comando);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
