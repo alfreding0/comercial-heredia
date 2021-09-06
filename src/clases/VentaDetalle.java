@@ -72,7 +72,7 @@ public class VentaDetalle {
             String [] titulos = {"PRODUCTO","PRECIO (Bs.)","CANTIDAD"};
             model = new DefaultTableModel(null, titulos);
             
-            String consulta = "SELECT p.nombre, dv.precio_unid, dv.cantidad FROM detalle_venta dv, producto p WHERE dv.id_producto = p.id;";
+            String consulta = "SELECT p.nombre, dv.precio_unid, dv.cantidad FROM detalle_venta dv, producto p WHERE dv.id_producto = p.id AND dv.id_venta='" + this.id_venta + "';";
             
             ResultSet rs = con.ejecutarConsulta(consulta);
             ResultSetMetaData datos = rs.getMetaData();
